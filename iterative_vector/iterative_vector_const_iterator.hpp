@@ -8,6 +8,5 @@ class const_it_vector_iterator{
     using reference = value_type*;
     using difference_type = std::ptrdiff_t;
 
-
-    
 };
+
