@@ -2,17 +2,26 @@
 #include <mutex>
 #include <set>
 #include <vector>
+#include "iterative_vector_iterator.hpp"
+#include "iterative_vector_const_iterator.hpp"
+
+
+
 
 template <typename T, typename Compare = std::less<T>,
           typename Allocator = std::allocator<T>>
 class iterative_vector {
 public:
   using value_type = T;
-  using reference = T &;
-  using const_reference = const T &;
+  using reference = value_type &;
+  using pointer = value_type *;
+  using const_reference = const value_type &;
   using size_type = std::size_t;
   using difference_type = std::ptrdiff_t;
-  // To be defined
+
+  using itv_type = iterative_vector<T, Compare, Allocator>;
+  using iterator = itv_iterator<itv_type>;
+  using const_iterator = const_itv_iterator<itv_type>;
   // iterator
   // const_iterator
 
@@ -58,6 +67,25 @@ public:
     std::swap(first.m_readonly_buffer, second.m_readonly_buffer);
     std::swap(first.m_write_only_buffer, second.m_write_only_buffer);
   }
+
+  //iterator related methods;
+
+  //Reading Iterators
+  const_iterator begin() const{}
+  const_iterator end() const {}
+  const_iterator cbegin() const{}
+  const_iterator cend() const{}
+  const_iterator crbegin() const{}
+  const_iterator crend() const{}
+
+
+  //writing iterator
+  iterator begin() {}
+  iterator end()  {}
+  iterator cbegin() {}
+  iterator cend() {}
+  iterator crbegin() {}
+  iterator crend() {}
 
 private:
   std::set<T, Compare, Allocator> m_readonly_buffer;
